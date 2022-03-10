@@ -7,12 +7,7 @@ const User = require("../models/userModel")
 // @route   GET /api/users/me
 // @access  private
 const getMe = asyncHandler(async (req, res) => {
-  const { id, email, name } = req.user
-  res.json({
-    _id: id,
-    email,
-    name
-  })
+  res.json(req.user)
 })
 
 // @desc    login user

@@ -6,8 +6,7 @@ const User = require('../models/userModel')
 // @route   GET /api/goals
 // @access  private
 const getGoals = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
-  if (!user) {
+  if (!req.user) {
     res.status(400)
     throw new Error('Unauthorized');
   }
@@ -19,8 +18,7 @@ const getGoals = asyncHandler(async (req, res) => {
 // @route   POST /api/goals
 // @access  private
 const setGoals = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
-  if (!user) {
+  if (!req.user) {
     res.status(400)
     throw new Error('Unauthorized');
   }
@@ -39,8 +37,7 @@ const setGoals = asyncHandler(async (req, res) => {
 // @route   PUT /api/goals/:id
 // @access  private
 const updateGoal = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
-  if (!user) {
+  if (!req.user) {
     res.status(400)
     throw new Error('Unauthorized');
   }
@@ -49,7 +46,7 @@ const updateGoal = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Goal not found')
   }
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(400)
     throw new Error('Unauthorized');
   }
@@ -67,8 +64,7 @@ const updateGoal = asyncHandler(async (req, res) => {
 // @route   DELETE /api/goals/:id
 // @access  private
 const deleteGoal = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
-  if (!user) {
+  if (!req.user) {
     res.status(400)
     throw new Error('Unauthorized');
   }
@@ -77,7 +73,7 @@ const deleteGoal = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Goal not found')
   }
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(400)
     throw new Error('Unauthorized');
   }
