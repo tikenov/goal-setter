@@ -77,8 +77,8 @@ const deleteGoal = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Unauthorized');
   }
-  await goal.remove()
-  res.status(200).json({ message: `Delete goal id: ${req.params.id}` })
+  const deletedGoal = await goal.remove()
+  res.status(200).json(deletedGoal)
 })
 
 module.exports = {
